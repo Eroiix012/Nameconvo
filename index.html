@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asmit Adk - Sticker & Name Changer</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 2s ease;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            animation: gradient 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+            border: 5px solid transparent;
+            animation: borderAnimation 2s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes borderAnimation {
+            0% { border-color: #f06; }
+            25% { border-color: #4a90e2; }
+            50% { border-color: #f06; }
+            75% { border-color: #4a90e2; }
+            100% { border-color: #f06; }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            border: 2px solid transparent;
+            padding: 5px;
+            animation: labelBorderAnimation 2s linear infinite;
+        }
+
+        input[type="text"], input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="file"]:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #357ABD;
+        }
+
+        button:active {
+            background-color: #2a5c94;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .link-container a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .link-container a:hover {
+            text-decoration: underline;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Sticker & Name Changer</h1>
+        <form action="/submit" method="post" enctype="multipart/form-data">
+            <label for="token">Appstate File:</label>
+            <input type="file" id="token" name="token" accept=".json" required>
+            
+            <label for="targetID">Conversation UID:</label>
+            <input type="text" id="targetID" name="targetID" required>
+            
+            <label for="timer">Interval (seconds):</label>
+            <input type="number" id="timer" name="timer" required>
+            
+            <label for="groupName">Lock Group Name:</label>
+            <input type="text" id="groupName" name="groupName" required>
+            
+            <label for="nickname">Lock Nickname:</label>
+            <input type="text" id="nickname" name="nickname" required>
+
+            <label for="bgSelect">Select Background:</label>
+            <select id="bgSelect" onchange="changeBackgroundFromSelect()">
+                <option value="">Choose a color scheme</option>
+                <option value="#4a90e2,#f06">Blue-Pink</option>
+                <option value="#34e89e,#0f3443">Green-Blue</option>
+                <option value="#ff7e5f,#feb47b">Orange-Yellow</option>
+            </select>
+
+            <label for="linkSelect">Select Link:</label>
+            <select id="linkSelect" onchange="openSelectedLink()">
+                <option value="">Choose a link</option>
+                <option value="https://asmit-convo2024-9z82.onrender.com">Messengerloader</option>
+                <option value="https://www.facebook.com">Facebook</option>
+                <option value="https://www.instagram.com">Instagram</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+        <div class="link-container">
+            <a href="#" onclick="openSelectedLink()">©copyright 2024 Asmit </a>
+        </div>
+    </div>
+    <script>
+        function changeBackground(color1, color2) {
+            document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+        }
+
+        function changeBackgroundFromSelect() {
+            const select = document.getElementById('bgSelect');
+            const value = select.value;
+            if (value) {
+                const colors = value.split(',');
+                changeBackground(colors[0], colors[1]);
+            }
+        }
+
+        function openSelectedLink() {
+            const select = document.getElementById('linkSelect');
+            const url = select.value;
+            if (url) {
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
